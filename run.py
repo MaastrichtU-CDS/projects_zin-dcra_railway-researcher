@@ -12,15 +12,15 @@ train = railway.createTrain("statistics", "registry.gitlab.com/medicaldataworks/
 print("====================Train====================")
 print(train)
 
-task1 = railway.createTask(train, "COMPLETED", json.dumps({"calculation_result": 6}), 2, 0, 0, False, "")
+task1 = railway.createTask(train, "COMPLETED", json.dumps({"calculation_result": 6}), "timh", 0, 0, False, "")
 print("====================Task 1====================")
 print(task1)
 
-task2 = railway.createTask(train, "COMPLETED", json.dumps({"calculation_result": 10}), 3, 0, 0, False, "")
+task2 = railway.createTask(train, "COMPLETED", json.dumps({"calculation_result": 10}), "johan", 0, 0, False, "")
 print("====================Task 2====================")
 print(task2)
 
-task3 = railway.createTask(train, "REQUESTED", "", 3, 0, 0, True, json.dumps({"iterations": 0}))
+task3 = railway.createTask(train, "REQUESTED", "", "johan", 0, 0, True, json.dumps({"iterations": 0}))
 print("====================Task 3====================")
 print(task3)
 
