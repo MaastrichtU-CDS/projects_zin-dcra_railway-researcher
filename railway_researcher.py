@@ -35,14 +35,15 @@ class RailwayResearcher:
                 return True
         return False
     
-    def createTrain(self, name, dockerImageUrl, ownerId):
+    def createTrain(self, name, dockerImageUrl, ownerId, clientTaskCount):
         response = requests.post(self.railwayApi + "/api/trains?access_token=" + self.apiToken,
             json={
                 "name": name,
                 "dockerImageUrl": dockerImageUrl,
                 "ownerId": ownerId,
                 "calculationStatus":"REQUESTED", 
-                "currentIteration":0
+                "currentIteration":0,
+                "clientTaskCount": clientTaskCount
             },
             headers={
                 "Content-Type": "application/json",
