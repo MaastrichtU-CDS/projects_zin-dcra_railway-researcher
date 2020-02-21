@@ -35,7 +35,7 @@ class RailwayResearcher:
                 return True
         return False
     
-    def createTrain(self, name, dockerImageUrl, ownerId):
+    def createTrain(self, name, dockerImageUrl, ownerId, clientTaskCount):
         if len(self.stations)==0:
             print("No stations available")
             return None
@@ -46,7 +46,8 @@ class RailwayResearcher:
                 "dockerImageUrl": dockerImageUrl,
                 "ownerId": ownerId,
                 "calculationStatus":"REQUESTED", 
-                "currentIteration":0
+                "currentIteration":0,
+                "clientTaskCount": clientTaskCount
             },
             headers={
                 "Content-Type": "application/json",
