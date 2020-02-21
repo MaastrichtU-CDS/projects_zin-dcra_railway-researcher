@@ -36,6 +36,10 @@ class RailwayResearcher:
         return False
     
     def createTrain(self, name, dockerImageUrl, ownerId, clientTaskCount):
+        if len(self.stations)==0:
+            print("No stations available")
+            return None
+
         response = requests.post(self.railwayApi + "/api/trains?access_token=" + self.apiToken,
             json={
                 "name": name,
