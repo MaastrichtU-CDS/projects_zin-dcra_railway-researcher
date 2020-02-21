@@ -20,7 +20,7 @@ task2 = railway.createTask(train, "COMPLETED", json.dumps({"calculation_result":
 print("====================Task 2====================")
 print(task2)
 
-task3 = railway.createTask(train, "REQUESTED", "", "timh", 0, 0, True, json.dumps({"iterations": 3}))
+task3 = railway.createTask(train, "REQUESTED", "", "maastro", 0, 0, True, json.dumps({"iterations": 3}))
 print("====================Task 3====================")
 print(task3)
 
