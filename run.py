@@ -9,11 +9,9 @@ keycloakToken = "b7940067-f9a7-41fb-b74b-f672fcdbfb6e"
 railwayUrl = "https://dcra.railway.medicaldataworks.nl"
 
 railway = RailwayResearcher(keycloakUrl, keycloakClient, keycloakToken, railwayUrl)
-# train = railway.createTrain("statistics", "registry.gitlab.com/um-cds/projects/zin-dcra/prototypetrain:master", "03838bb4-8103-4a98-a9c3-d4848b13b3f6", 2)
-# print("====================Train====================")
-# print(train)
-
-train = {"id": 15}
+train = railway.createTrain("statistics", "registry.gitlab.com/um-cds/projects/zin-dcra/prototypetrain:master", "03838bb4-8103-4a98-a9c3-d4848b13b3f6", 2)
+print("====================Train====================")
+print(train)
 
 inputData = {
     "query": """
