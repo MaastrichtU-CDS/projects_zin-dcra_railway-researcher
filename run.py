@@ -35,3 +35,5 @@ print(task1)
 taskResult = railway.getTaskResult(task1, waitCompleted=True)
 print("====================Result====================")
 print(taskResult)
+
+# TODO: Add closing task
