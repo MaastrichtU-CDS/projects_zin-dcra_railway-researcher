@@ -54,7 +54,7 @@ class RailwayResearcher:
             })
         return response.json()
     
-    def createTask(self, trainStruct, calculationStatus, result, stationId, iteration, currentIteration, master, input):
+    def createTask(self, trainStruct, calculationStatus, result, stationId, iteration, currentIteration, master, inputString):
         if type(stationId) == str:
             stationId = self.__getStationIdByName(stationId)
         
@@ -62,8 +62,7 @@ class RailwayResearcher:
             print("Could not create task. No valid station name or ID")
             return None
 
-        response = requests.post(self.railwayApi + "/api/trains/"+str(trainStruct['id'])+"/tasks?access_token=" + self.apiToken,
-            json={
+        jsonData = {
                 "creationTimestamp": datetime.now().isoformat(),
                 "calculationStatus": calculationStatus,
                 "result": result,
@@ -71,8 +70,10 @@ class RailwayResearcher:
                 "iteration": iteration,
                 "currentIteration": currentIteration,
                 "master": master,
-                "input": input
-            },
+                "input": inputString
+            }
+        response = requests.post(self.railwayApi + "/api/trains/"+str(trainStruct['id'])+"/tasks?access_token=" + self.apiToken,
+            json=jsonData,
             headers={
                 "Content-Type": "application/json",
             })
