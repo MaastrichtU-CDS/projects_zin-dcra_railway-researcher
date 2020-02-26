@@ -18,12 +18,12 @@ inputData = {
         PREFIX db: <http://localhost/rdf/ontology/>
         PREFIX dbo: <http://um-cds/ontologies/databaseontology/>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-        SELECT ?tt ?gender
+        SELECT (IRI(concat("http://term.local/", ?genderString)) AS ?gender)
         WHERE {
             ?tt ?p db:Tumour_Treatment.
             ?tt dbo:has_column [
                 rdf:type db:Tumour_Treatment.Geslacht;
-                dbo:has_value ?gender;
+                dbo:has_value ?genderString;
             ].
         }"""
 }
@@ -32,7 +32,11 @@ task1 = railway.createTask(train, "REQUESTED", "", "maastro", 0, 0, False, json.
 print("====================Task 1====================")
 print(task1)
 
-taskResult = railway.getTaskResult(task1, waitCompleted=True)
+masterTask = railway.createTask(train, "REQUESTED", "", "maastro", 0, 0, True, "")
+print("====================MasterTask================")
+print(masterTask)
+
+taskResult = railway.getTaskResult(masterTask, waitCompleted=True)
 print("====================Result====================")
 print(taskResult)
 
