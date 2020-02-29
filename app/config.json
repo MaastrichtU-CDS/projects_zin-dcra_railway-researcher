@@ -1,0 +1,6 @@
+{
+    "keycloakUrl": "https://dcra-keycloak.railway.medicaldataworks.nl",
+    "keycloakClient": "johan",
+    "keycloakToken": "b7940067-f9a7-41fb-b74b-f672fcdbfb6e",
+    "railwayUrl": "https://dcra.railway.medicaldataworks.nl"
+}
