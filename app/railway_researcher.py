@@ -84,8 +84,35 @@ class RailwayResearcher:
         
         responseJson = requests.get(url).json()
         
-        while (responseJson["calculationStatus"] in ["REQUESTED", "PROCESSING"]):
-            time.sleep(5)
-            responseJson = requests.get(url).json()
+        if waitCompleted:
+            while (responseJson["calculationStatus"] in ["REQUESTED", "PROCESSING"]):
+                time.sleep(5)
+                responseJson = requests.get(url).json()
         
         return responseJson
+    
+    def getTrainResult(self, trainId, waitCompleted=False):
+        url = self.railwayApi + "/api/trains/" + str(trainId) + "?access_token=" + self.apiToken
+        
+        trainResponse = requests.get(url).json()
+        
+        if waitCompleted:
+            while (trainResponse["calculationStatus"] in ["REQUESTED", "PROCESSING"]):
+                time.sleep(5)
+                trainResponse = requests.get(url).json()
+        
+        if trainResponse['calculationStatus'] in ["COMPLETED"]:
+            url = self.railwayApi + "/api/trains/" + str(trainId) + "/tasks?access_token=" + self.apiToken
+            tasks = requests.get(url).json()
+            lastMasterTask = None
+            for task in tasks:
+                if task["master"]:
+                    if lastMasterTask is None:
+                        lastMasterTask = task
+                    if task['iteration'] > lastMasterTask['iteration']:
+                        lastMasterTask = task
+            
+            if lastMasterTask is not None:
+                trainResponse['latestTask'] = lastMasterTask
+        
+        return trainResponse
