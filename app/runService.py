@@ -36,8 +36,8 @@ def createRun():
                 ].
             }"""
     }
-    task1 = railway.createTask(train, "REQUESTED", "", "maastro", 0, 0, False, json.dumps(inputData))
-    masterTask = railway.createTask(train, "REQUESTED", "", "maastro", 0, 0, True, "")
+    railway.createTask(train, "REQUESTED", "", "maastro", 0, 0, False, json.dumps(inputData))
+    railway.createTask(train, "REQUESTED", "", "maastro", 0, 0, True, "")
     return render_template("requested.html", trainId=train['id'])
 
 
