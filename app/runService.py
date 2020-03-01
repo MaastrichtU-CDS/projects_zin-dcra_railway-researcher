@@ -1,6 +1,7 @@
 from flask import Flask, Response, request, send_file, abort, render_template
 import json
 from railway_researcher import RailwayResearcher
+import re
 
 # Create web application
 app = Flask('ZIN DCRA Train Executor')
@@ -45,6 +46,8 @@ def createRun():
 def checkRun(trainId):
     railway = getRailway()
     trainResult = railway.getTrainResult(trainId)
+
+    trainResult['codeUrl'] = "https://" + re.sub("\:.*$", "", re.sub("registry\.", "", trainResult['dockerImageUrl']))
 
     if "latestTask" in trainResult:
         trainResult['latestTask']['result'] = json.loads(trainResult['latestTask']['result'])
