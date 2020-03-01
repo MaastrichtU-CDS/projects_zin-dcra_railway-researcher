@@ -1,4 +1,4 @@
-from railway_researcher import RailwayResearcher
+from app.railway_researcher import RailwayResearcher
 import json
 import time
 import html
@@ -9,6 +9,7 @@ keycloakToken = "b7940067-f9a7-41fb-b74b-f672fcdbfb6e"
 railwayUrl = "https://dcra.railway.medicaldataworks.nl"
 
 railway = RailwayResearcher(keycloakUrl, keycloakClient, keycloakToken, railwayUrl)
+
 train = railway.createTrain("statistics", "registry.gitlab.com/um-cds/projects/zin-dcra/prototypetrain:master", "03838bb4-8103-4a98-a9c3-d4848b13b3f6", 2)
 print("====================Train====================")
 print(train)
@@ -36,8 +37,10 @@ masterTask = railway.createTask(train, "REQUESTED", "", "maastro", 0, 0, True, "
 print("====================MasterTask================")
 print(masterTask)
 
-taskResult = railway.getTaskResult(masterTask, waitCompleted=True)
-print("====================Result====================")
+taskResult = railway.getTaskResult(masterTask, waitCompleted=False)
+print("====================MasterResult====================")
 print(taskResult)
 
-# TODO: Add closing task
+trainResult = railway.getTrainResult(train['id'], waitCompleted=True)
+print("====================TrainResult====================")
+print(trainResult)
