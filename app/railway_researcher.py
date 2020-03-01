@@ -112,7 +112,6 @@ class RailwayResearcher:
                     if task['iteration'] > lastMasterTask['iteration']:
                         lastMasterTask = task
             
-            if lastMasterTask is not None:
-                trainResponse['latestTask'] = lastMasterTask
+            trainResponse['latestTask'] = lastMasterTask
         
         return trainResponse
