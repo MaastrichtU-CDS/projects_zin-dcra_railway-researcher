@@ -11,6 +11,8 @@ with open('config.json', 'r') as file:
 ######################################################################################
 # Various webpage controller functions
 ######################################################################################
+def getRailway():
+    return RailwayResearcher(config['keycloakUrl'], config['keycloakClient'], config['keycloakToken'], config['railwayUrl'])
 
 @app.route('/', methods=["GET"])
 def index():
@@ -18,7 +20,7 @@ def index():
 
 @app.route('/', methods=["POST"])
 def createRun():
-    railway = RailwayResearcher(config['keycloakUrl'], config['keycloakClient'], config['keycloakToken'], config['railwayUrl'])
+    railway = getRailway()
     train = railway.createTrain("statistics", "registry.gitlab.com/um-cds/projects/zin-dcra/prototypetrain:master", "03838bb4-8103-4a98-a9c3-d4848b13b3f6", 2)
     inputData = {
         "query": """
@@ -37,5 +39,22 @@ def createRun():
     task1 = railway.createTask(train, "REQUESTED", "", "maastro", 0, 0, False, json.dumps(inputData))
     masterTask = railway.createTask(train, "REQUESTED", "", "maastro", 0, 0, True, "")
     return render_template("requested.html", trainId=train['id'])
+
+
+@app.route('/train/<int:trainId>')
+def checkRun(trainId):
+    railway = getRailway()
+    trainResult = railway.getTrainResult(trainId)
+
+    if "latestTask" in trainResult:
+        trainResult['latestTask']['result'] = json.loads(trainResult['latestTask']['result'])
+        if len(trainResult['latestTask']['result']['categoricalStats']) > 0:
+            trainResult['latestTask']['result']['categoricalStats'] = json.loads(trainResult['latestTask']['result']['categoricalStats'])
+            print(trainResult['latestTask']['result']['categoricalStats'])
+        if len(trainResult['latestTask']['result']['numericalStats']) > 0:
+            trainResult['latestTask']['result']['numericalStats'] = json.loads(trainResult['latestTask']['result']['numericalStats'])
+    
+    return render_template("trainResult.html", trainResult=trainResult)
+
 
 app.run(debug=True, host='0.0.0.0', port=80)

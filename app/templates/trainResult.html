@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>DCRA ZIN PHT Train executor</title>
+    </head>
+
+    <body>
+        <h1>Train result</h1>
+        <p>Click <a href="/">here</a> to go back to the homepage</p>
+        <h2>Metadata</h2>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td>{{ trainResult['name'] }}</td>
+            </tr>
+            <tr>
+                <td>ID:</td>
+                <td>{{ trainResult['id'] }}</td>
+            </tr>
+            <tr>
+                <td>Status:</td>
+                <td>{{ trainResult['calculationStatus'] }}</td>
+            </tr>
+            <tr>
+                <td>Docker image:</td>
+                <td>{{ trainResult['dockerImageUrl'] }}</td>
+            </tr>
+        </table>
+        
+        {% if trainResult['latestTask'] %}
+        <h2>Train results</h2>
+
+        <h3>Categorical statistics</h3>
+        <table>
+            <tr>
+                {% for row in trainResult['latestTask']['result']['categoricalStats'][0] %}
+                <th>{{ row }}</th>
+                {% endfor %}
+            </tr>
+
+            {% for row in trainResult['latestTask']['result']['categoricalStats'] %}
+            <tr>
+                {% for cellItem, cellValue in row.items() %}
+                <td>{{ cellValue }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Numerical statistics</h3>
+        <table>
+            <tr>
+                {% for row in trainResult['latestTask']['result']['numericalStats'][0] %}
+                <th>{{ row }}</th>
+                {% endfor %}
+            </tr>
+
+            {% for row in trainResult['latestTask']['result']['numericalStats'] %}
+            <tr>
+                {% for cellItem, cellValue in row.items() %}
+                <td>{{ cellValue }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% endif %}
+    </body>
+</html>
