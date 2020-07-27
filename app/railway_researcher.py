@@ -52,6 +52,7 @@ class RailwayResearcher:
             headers={
                 "Content-Type": "application/json",
             })
+        print(response.text)
         return response.json()
     
     def createTask(self, trainStruct, calculationStatus, result, stationId, iteration, currentIteration, master, inputString):

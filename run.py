@@ -4,8 +4,8 @@ import time
 import html
 
 keycloakUrl = "https://dcra-keycloak.railway.medicaldataworks.nl"
-keycloakClient = "johan"
-keycloakToken = "b7940067-f9a7-41fb-b74b-f672fcdbfb6e"
+keycloakClient = "ananya"
+keycloakToken = "c3b77319-0ee5-444a-8391-615c1d037ed9"
 railwayUrl = "https://dcra.railway.medicaldataworks.nl"
 
 railway = RailwayResearcher(keycloakUrl, keycloakClient, keycloakToken, railwayUrl)
